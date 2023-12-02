@@ -1,4 +1,8 @@
 # My solutions to [Advent of Code 2023](https://adventofcode.com/2023)
 #### Since I'm trying to learn Rust right now, I decided that writing solutions in Rust would be a good idea, so here they are:
-- [Day 1](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/tree/master/day1)
-- [Day 2](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/tree/master/day2)
+- Day 1
+ -- [Input](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day1/input)
+ -- [Solution](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day1/src/main.rs)
+- Day 2
+ --[Input](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day2/input)
+ -- [Solution](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day2/src/main.rs)
