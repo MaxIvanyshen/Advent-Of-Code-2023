@@ -1,0 +1,13 @@
+use std::fs::read_to_string;
+use std::collections::HashMap;
+fn main() {
+    let file_content = read_to_string("input").unwrap();
+    let maps: Vec<&str> = file_content;
+
+    let mut tmp: Vec<i64> = maps[0].split(":").collect::<Vec<&str>>()[1].split(" ").filter(|s| !s.eq(&"")).map(|x| x.parse::<i64>().unwrap()).collect();
+
+    
+
+    println!("{}", *tmp.iter().min().unwrap());
+    
+}
