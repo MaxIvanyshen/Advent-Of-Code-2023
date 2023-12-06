@@ -1,6 +1,5 @@
 use std::fs::read_to_string;
 
-
 fn solve(game_str: &str) -> (i32, i32) {
     let mut id: i32;
     let mut power: i32;
