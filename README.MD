@@ -15,3 +15,6 @@
 - Day 5
   - [Input](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day5/input)
   - [Solution](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day5/src/main.rs)
+- Day 6
+  - [Input](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day6/input)
+  - [Solution](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day6/src/main.rs)
