@@ -16,6 +16,7 @@ fn count_ways_to_win(time: i64, distance: i64) -> i64 {
     return ans;
 }
 
+
 fn part1(file_content: &String) -> i64 {
 
     let times: Vec<i32> = file_content
