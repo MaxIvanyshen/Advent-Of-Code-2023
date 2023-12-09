@@ -1,6 +1,6 @@
 # My solutions to [Advent of Code 2023](https://adventofcode.com/2023)
 #### Since I'm trying to learn Rust right now, I've decided that writing solutions in Rust would be a good idea, so here they are:
-- Day 1
+- Day 2
   - [Input](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day1/input)
   - [Solution](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day1/src/main.rs)
 - Day 2
@@ -21,3 +21,6 @@
 - Day 8
   - [Input](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day8/input)
   - [Solution](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day8/src/main.rs)
+- Day 9
+  - [Input](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day9/input)
+  - [Solution](https://github.com/MaxIvanyshen/Advent-Of-Code-2023/blob/master/day9/src/main.rs)
