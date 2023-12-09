@@ -1,6 +1,6 @@
 use std::fs::read_to_string;
 
-fn predict(nums: &Vec<i32>) -> i32 {
+fn predict_p1(nums: &Vec<i32>) -> i32 {
     let mut base_case = true;
 
     let mut i = 0;
@@ -19,14 +19,37 @@ fn predict(nums: &Vec<i32>) -> i32 {
         return n; 
     }
 
-    return nums[nums.len() - 1] + predict(&v);
+    return nums[nums.len() - 1] + predict_p1(&v);
+}
+
+fn predict_p2(nums: &Vec<i32>) -> i32 {
+    let mut base_case = true;
+
+    let mut i = 0;
+    let mut v: Vec<i32> = Vec::new();
+    while i < nums.len() - 1 {
+        let n = nums[i + 1] - nums[i];
+        v.push(n);
+        if n != 0 {
+            base_case = false;
+        }
+        i += 1;
+    }
+
+    if base_case {
+        let n = nums[0] - v[0];
+        return n;
+    }
+
+    return nums[0] - predict_p2(&v);
 }
 
 fn main() {
     let file_content = read_to_string("input").unwrap();
     let lines = file_content.lines().collect::<Vec<&str>>(); 
 
-    let mut ans = 0;
+    let mut p1 = 0;
+    let mut p2 = 0;
 
     for line in lines {
         let nums: Vec<i32> = line
@@ -35,8 +58,11 @@ fn main() {
             .map(|x| x.parse::<i32>().unwrap())
             .collect();
 
-        ans += predict(&nums);
+        p1 += predict_p1(&nums);
+        p2 += predict_p2(&nums);
     }
     
-    println!("{ans}");
+    println!("Part 1: {p1}");
+    println!("Part 2: {p2}");
+
 }
