@@ -1,12 +1,7 @@
-use std::{fs::read_to_string, iter::zip};
+use std::fs::read_to_string;
+use std::cmp::{min, max};
 
-fn main() {
-    let file_content = read_to_string("input").unwrap();
-    let mut grid: Vec<Vec<char>> = Vec::new();
-    for line in file_content.lines() {
-        grid.push(line.chars().collect::<Vec<char>>());
-    }
-    
+fn solve(grid: &Vec<Vec<char>>, part2: bool) -> i64 {
     let mut empty_rows: Vec<usize> = Vec::new();
 
     for(r, row) in grid.iter().enumerate() {
@@ -39,14 +34,17 @@ fn main() {
         }
     }
     
-    let mut total = 0;
+    let mut total: i64 = 0;
     let mut scale = 2;
+    if part2 {
+        scale = 100000;
+    }
     for (i, (r1, c1)) in points.iter().enumerate() {
         let mut j = 0;
         while j < i {
             let (r2, c2) = points[j];
-            let mut r = std::cmp::min(r1, &r2).clone();
-            while r < std::cmp::max(*r1, r2) {
+            let mut r = min(r1, &r2).clone();
+            while r < max(*r1, r2) {
                 if empty_rows.contains(&r) {
                     total += scale; 
                 }
@@ -55,8 +53,8 @@ fn main() {
                 }
                 r += 1;
             }
-            let mut c = std::cmp::min(c1, &c2).clone();
-            while c < std::cmp::max(*c1, c2) {
+            let mut c = min(c1, &c2).clone();
+            while c < max(*c1, c2) {
                 if empty_cols.contains(&c) {
                     total += scale;
                 }
@@ -69,5 +67,16 @@ fn main() {
         }
     }
 
-    println!("{total}");
+    return total;
+}
+
+fn main() {
+    let file_content = read_to_string("input").unwrap();
+    let mut grid: Vec<Vec<char>> = Vec::new();
+    for line in file_content.lines() {
+        grid.push(line.chars().collect::<Vec<char>>());
+    }
+
+    println!("Part 1: {}", solve(&grid, false));
+    println!("Part 2: {}", solve(&grid, true));
 }
