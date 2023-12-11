@@ -1,5 +1,6 @@
 use std::fs::read_to_string;
 use std::collections::HashMap;
+use gcd::Gcd;
 
 fn dfs_p1(curr_node: &str, map: &HashMap<&str, (&str, &str)>, steps: i32, path: Vec<char>, curr_step: usize) -> i32 {
     if curr_node.eq("ZZZ") {
@@ -21,42 +22,63 @@ fn dfs_p1(curr_node: &str, map: &HashMap<&str, (&str, &str)>, steps: i32, path: 
     } 
 }
 
-fn dfs_p2<'a>(curr_nodes: &'a mut Vec<&'a str>, map: &HashMap<&'a str, (&'a str, &'a str)>, steps: i32, path: Vec<char>, curr_step: usize) -> i32 {
-    let mut all_z = true;
-    for node in &mut *curr_nodes {
-        if !node.ends_with("Z") {
-            all_z = false; 
+fn part2(map: &HashMap<&str, (&str, &str)>, path: Vec<char>) -> u64 {
+     let mut positions: Vec<&str> = Vec::new();
+     for (k, v) in map.iter() {
+        if k.ends_with("A") {
+            positions.push(k); 
         }
-    }
-    if all_z {
-        return steps;
-    }
+     }
 
-    let mut next_step = curr_step + 1;
+     let mut cycles: Vec<Vec<i32>> = Vec::new();
 
-    let next = path[curr_step];
-    if curr_step + 1 >= path.len() {
-        next_step = 0;
-    }
+     for mut current in positions {
+        let mut cycle: Vec<i32> = Vec::new(); 
+        let mut curr_step = 0;
+        let mut step_count = 0;
+        let mut first_z = "";
 
-    let mut v: Vec<&str> = Vec::new();
+        loop {
+            while step_count == 0 || !current.ends_with("Z") {
+                 step_count += 1;
+                 if path[curr_step] == 'L' {
+                    current = map.get(current).unwrap().0;
+                 }
+                 else {
+                    current = map.get(current).unwrap().1;
+                 }
 
-    if next == 'L' {
-        let mut i: usize = 0;
-        while i < curr_nodes.len() {
-            curr_nodes[i] = map.get(curr_nodes[i]).unwrap().0;
-            i += 1;
+                 curr_step += 1;
+                 if curr_step >= path.len() {
+                    curr_step = 0; 
+                 }
+            }
+            cycle.push(step_count);
+
+            if first_z.eq("") {
+                first_z = current;
+                step_count = 0;
+            }
+            else if current == first_z {
+                break;
+            }
         }
-        return dfs_p2(curr_nodes, map, steps + 1, path, next_step);
-    }
-    else {
-        let mut i: usize = 0;
-        while i < curr_nodes.len() {
-            curr_nodes[i] = map.get(curr_nodes[i]).unwrap().1;
-            i += 1;
-        }
-        return dfs_p2(curr_nodes, map, steps + 1, path, next_step);
-    }
+
+         cycles.push(cycle);
+     }
+
+     let mut nums: Vec<u64> = Vec::new();
+
+     for cycle in cycles {
+        nums.push(cycle[0] as u64);
+     }
+
+     let mut lcm: u64 = nums.pop().unwrap(); 
+     for num in nums {
+        lcm = (lcm * num)/ lcm.gcd(num);
+     }
+
+     return lcm;
 }
 
 fn main() {
@@ -75,10 +97,9 @@ fn main() {
 
      let mut map: HashMap<&str, (&str, &str)> = HashMap::new();   
 
-     for n in nodes {
+     for n in &nodes {
         let v = n.split("=").collect::<Vec<&str>>();
         let value = v[0].trim();
-        let mut children: (&str, &str);
         let v = v[1].trim()
             .split(",")
             .collect::<Vec<&str>>();
@@ -86,16 +107,7 @@ fn main() {
         map.insert(value, (&v[0][1..v[0].len()], &v[1][1..v[1].len() - 1]));
      }
 
-     //println!("Part 1: {}", dfs_p1("AAA", &map, 0, path, 0));
-     
-     let mut nodes: Vec<&str> = Vec::new();
-     for (k, v) in map.iter() {
-        if k.ends_with("A") {
-            nodes.push(k);
-        }
-     }
-
-     println!("Part 2: {}", dfs_p2(&mut nodes, &map, 0, path, 0));
-
-
+     println!("Part 1: {}", dfs_p1("AAA", &map, 0, path.clone(), 0));
+     println!("Part 2: {}", part2(&map, path.clone()));
 }
+
